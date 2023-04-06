@@ -1,4 +1,6 @@
 require("dotenv").config();
+const PORT = process.env.PORT;
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -10,10 +12,6 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(cors());
 app.use(express.json()); // for parsing application/json
 
-const PORT = process.env.PORT || 5000;
-const dbUrl =
-  process.env.access_token ||
-  "BQDqz3yYJYKTnXYcXcR7glGp9sglDKeKMZNy0jfq9jGTYWvd13t1wSvC0s1CSAyTmtZVvG41YLR1SjJY8Ell5zvM4vP6GhZlGBDzPo4C51zwnsRRTic5";
 
 app.get("/get", (req, res) => {
   res.send(gross);
