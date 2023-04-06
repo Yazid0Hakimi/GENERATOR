@@ -1,8 +1,8 @@
-POST   http://localhost:5000/post   HTTP/1.1
-Content-Type: application/json
-
-{
-    "item1": "1",
-    "item2": "2",
-    "item3": "3"
-}
+get https://api.spotify.com/v1/search?q=artist:adele&type=track HTTP/1.1
+ 
+  "headers": 
+     "Authorization":"Bearer BQDqz3yYJYKTnXYcXcR7glGp9sglDKeKMZNy0jfq9jGTYWvd13t1wSvC0s1CSAyTmtZVvG41YLR1SjJY8Ell5zvM4vP6GhZlGBDzPo4C51zwnsRRTic5"
+  
+###
+  GET https://api.spotify.com/v1/search?q=artist:adele&type=track  HTTP/1.1
+Authorization: Bearer BQDqz3yYJYKTnXYcXcR7glGp9sglDKeKMZNy0jfq9jGTYWvd13t1wSvC0s1CSAyTmtZVvG41YLR1SjJY8Ell5zvM4vP6GhZlGBDzPo4C51zwnsRRTic5
