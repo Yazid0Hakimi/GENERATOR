@@ -1,0 +1,14 @@
+const albumData = {
+                  items: [
+                    {
+                      album_group: "album",
+                      album_typedd: "album",
+                      album_tyddpe: "album",
+                      album_type: "aqqqqqqqqqqqqqlbum",
+                    },
+                  ],
+                };
+
+                const {
+                  items: [{ album_group, album_type }],
+                } = albumData;

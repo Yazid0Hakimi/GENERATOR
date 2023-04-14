@@ -7,14 +7,8 @@ function Footer() {
       bgcolor={"#0066cc"}
       sx={{
         color: "white",
-        display: "flex",
-        alignItems: "center",
-        padding: "20px",
-
-      
-        width: "100%",
-        height: "6vh",
-        // marginBottom: "50px",
+        height: "45px",
+       
       }}
     >
       MADE BY EL YAZID HAKIMI <br />

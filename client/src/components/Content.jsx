@@ -5,59 +5,70 @@ import { TextField } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import { useState } from "react";
-
-
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#000000",
-    },
-  },
-});
+import TrackTable from "./TrackTable";
+import Test from "./Test.jsx";
+import MusicCard from "./MusicCard";
 
 function Content() {
   const [textFieldValue, setTextFieldValue] = useState("");
 
-  const sendDataToServer = async ( inputValue) => {
-    const artist = inputValue; ;
-    const accessToken =
-      "BQDqz3yYJYKTnXYcXcR7glGp9sglDKeKMZNy0jfq9jGTYWvd13t1wSvC0s1CSAyTmtZVvG41YLR1SjJY8Ell5zvM4vP6GhZlGBDzPo4C51zwnsRRTic5";
+  const sendDataToServer = async () => {
+    const data = { data: textFieldValue };
 
-    fetch(`https://api.spotify.com/v1/search?q=${artist}&type=track`, {
+    console.log(JSON.stringify(data));
+    const result = await fetch("http://localhost:5000/post", {
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Display the response data on the page
-        const tracks = data.tracks.items;
-        const trackList = document.createElement("ul");
-        tracks.forEach((track) => {
-          const trackItem = document.createElement("li");
-          trackItem.innerText = track.name;
-          trackList.appendChild(trackItem);
-        });
-        document.body.appendChild(trackList);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      body: JSON.stringify(data),
+    });
+    return result.json();
+  };
+  const musicData = {
+    tracks: [
+      {
+        name: "set fire",
+        description:
+          "Lorem ipsum dolor sit amet consectetur dolor sit amet consectetur.",
+      },
+      {
+        name: "adele",
+        description:
+          "Lorem ipsum dolor sit amet consectetur dolor sit amet consectetur.",
+      },
+    ],
   };
 
   return (
-    <Box flex={10}>
+    <Box
+      flex={10}
+      sx={{ Width: "100%", minHeight: "86vh", marginBottom: "12vh" }}
+    >
       <Stack
-        sx={{ width: "100%", height: "95%" }}
+        // sx={{ Width: "100%", height: "95%" }}
         alignItems="center"
         justifyContent="center"
       >
         {/* go to figma
       https://www.figma.com/file/ikqh8MhHvYJlxklDhMCxSI/Untitled?node-id=0-1&t=QUgc5c5xRSrmriCr-0
       input */}
-        <Stack sx={{ height: "40%" }} justifyContent="space-around">
+        <Box
+          sx={{
+            maxHeight: "33vh",
+            width: "50vw",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          {/* <Test /> */}
+          slither
+        </Box>
+
+        <Stack
+          sx={{ height: "40vh", marginTop: "120px" }}
+          justifyContent="space-around"
+        >
           <Box bgcolor={"#E3E2E3"} sx={{ borderRadius: "8px" }}>
             <TextField
               id="filled-search"
@@ -77,9 +88,22 @@ function Content() {
               left: "38%",
               color: "white",
             }}
-            onClick={() => {
-              sendDataToServer().then((data) => console.log(data));
-            }}
+            onClick={() =>
+              sendDataToServer().then((res) => {
+const { items } = res.tracks;
+items.forEach(
+  ({ artists, album: { album_type, images, name, release_date } }) => {
+    artists.forEach(({ name: artistName }) => {
+        console.log(artistName);
+    });
+    console.log(album_type);
+    console.log(images[0].url);
+    console.log(name);
+    console.log(release_date);
+    console.log("==========================================");
+  }
+);
+              })}
           >
             submit
           </Button>
@@ -87,7 +111,12 @@ function Content() {
             Type A Music Type To Generate A Playlist From All Over The World
           </Box>
         </Stack>
+
+        <h1 style={{ color: "white" }}>Tracks </h1>
+        {/* <TrackTable  /> */}
       </Stack>
+      {/* <MusicCard items={musicData} /> */}
+      <MusicCard items={musicData} />
     </Box>
   );
 }
