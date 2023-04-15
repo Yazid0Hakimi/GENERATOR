@@ -1,4 +1,4 @@
 node_modules
 getToken.txt
-./components/test
-./components/data
+components/test
+components/data
