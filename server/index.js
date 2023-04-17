@@ -22,7 +22,7 @@ app.get("/get", (req, res) => {
 app.post("/post", async (req, res) => {
   const input = req.body.data;
   const URL = ` https://api.spotify.com/v1/search?q=artist:${input}&type=track`;
-
+  
   try {
     const response = await axios.get(URL, {
       headers: {
@@ -35,6 +35,7 @@ app.post("/post", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  console.log(URL);
 });
 
 app.listen(PORT, () => {

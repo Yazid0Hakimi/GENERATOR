@@ -5,51 +5,46 @@ import { TextField } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import TrackTable from "./TrackTable";
 import Test from "./Test.jsx";
-import MusicCard from "./MusicCard";
+import { useEffect } from "react";
+import CardHolder from "./CardHolder";
 
 function Content() {
   const [textFieldValue, setTextFieldValue] = useState("");
+  const [Items, setItems] = useState([]);
 
-  const sendDataToServer = async () => {
+  const GetApiResult = () => {
+    console.log(textFieldValue);
     const data = { data: textFieldValue };
-
-    console.log(JSON.stringify(data));
-    const result = await fetch("http://localhost:5000/post", {
+    fetch("http://localhost:5000/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
-    return result.json();
+    })
+      .then((data) => data.json())
+      .then((compData) => {
+        setItems(compData);
+        console.log(compData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const musicData = {
-    tracks: [
-      {
-        name: "set fire",
-        description:
-          "Lorem ipsum dolor sit amet consectetur dolor sit amet consectetur.",
-      },
-      {
-        name: "adele",
-        description:
-          "Lorem ipsum dolor sit amet consectetur dolor sit amet consectetur.",
-      },
-    ],
-  };
+  //  useEffect(() => {
+  //    // Send API request when apiResult changes
+  //    if (compData) {
+  //      console.log("API result:", compData);
+  //    }
+  //  }, [apiResult]);
 
   return (
     <Box
       flex={10}
       sx={{ Width: "100%", minHeight: "86vh", marginBottom: "12vh" }}
     >
-      <Stack
-        // sx={{ Width: "100%", height: "95%" }}
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Stack alignItems="center" justifyContent="center">
         {/* go to figma
       https://www.figma.com/file/ikqh8MhHvYJlxklDhMCxSI/Untitled?node-id=0-1&t=QUgc5c5xRSrmriCr-0
       input */}
@@ -64,7 +59,6 @@ function Content() {
           {/* <Test /> */}
           slither
         </Box>
-
         <Stack
           sx={{ height: "40vh", marginTop: "120px" }}
           justifyContent="space-around"
@@ -77,7 +71,7 @@ function Content() {
               variant="filled"
               color="primary"
               sx={{ width: "700px" }}
-              onChange={(e) => setTextFieldValue(e.target.value)}
+              onClick={(e) => setTextFieldValue(e.target.value)}
             />
           </Box>
           <Button
@@ -88,22 +82,7 @@ function Content() {
               left: "38%",
               color: "white",
             }}
-            onClick={() =>
-              sendDataToServer().then((res) => {
-const { items } = res.tracks;
-items.forEach(
-  ({ artists, album: { album_type, images, name, release_date } }) => {
-    artists.forEach(({ name: artistName }) => {
-        console.log(artistName);
-    });
-    console.log(album_type);
-    console.log(images[0].url);
-    console.log(name);
-    console.log(release_date);
-    console.log("==========================================");
-  }
-);
-              })}
+            onClick={GetApiResult()}
           >
             submit
           </Button>
@@ -111,14 +90,12 @@ items.forEach(
             Type A Music Type To Generate A Playlist From All Over The World
           </Box>
         </Stack>
-
         <h1 style={{ color: "white" }}>Tracks </h1>
-        {/* <TrackTable  /> */}
       </Stack>
-      {/* <MusicCard items={musicData} /> */}
-      <MusicCard items={musicData} />
+      <Stack>
+        <CardHolder items={Items} />
+      </Stack>
     </Box>
   );
 }
-
 export default Content;
