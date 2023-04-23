@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   Card,
   CardMedia,
@@ -7,11 +6,11 @@ import {
   CardContent,
   CardActions,
   Button,
+  Grid,
 } from "@mui/material";
 
 function CardHolder(props) {
   const [items, setItems] = useState([]);
-
   useEffect(() => {
     if (props.items?.tracks?.items) {
       setItems(props.items.tracks.items);
@@ -19,12 +18,23 @@ function CardHolder(props) {
       console.log("empty");
     }
   }, [props]);
-
   return (
     <>
-      {items.map((item) => (
-        <MusicCard item={item} key={item.id} />
-      ))}
+      <h1 style={{ color: "white", width: "100%", textAlign: "center" }}>
+        Infographie
+      </h1>
+
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={1}
+      >
+        {items.map((item) => (
+          <Grid item xs={3}>
+            <MusicCard item={item} key={item.id} />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }
@@ -40,20 +50,20 @@ function MusicCard(props) {
   return (
     <Card
       sx={{
-        width: 300,
-        height: 380,
+        maxWidth: "300px",
+        width: "100%",
+        maxHeight: "380px",
+        height: "100%",
         background: "#0a1128",
-        margin: "30px",
+        margin: "20px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       <CardMedia sx={{ height: 240 }} image={images[0].url} title={name} />
       <CardContent sx={{ paddingBottom: "0" }}>
-        <Typography
-          gutterBottom
-          variant="h5"
-          sx={{ color: "white" }}
-          component="div"
-        >
+        <Typography gutterBottom variant="h4" sx={{ color: "white" }}>
           {name}
         </Typography>
         <Typography variant="h6" sx={{ paddingLeft: "20px" }} color="white">
