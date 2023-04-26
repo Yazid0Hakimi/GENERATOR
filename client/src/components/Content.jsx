@@ -25,6 +25,7 @@ function Content() {
       })
         .then((data) => data.json())
         .then((compData) => {
+          console.log(compData);
           setItems(compData);
         })
         .catch((err) => {
