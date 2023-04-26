@@ -33,7 +33,11 @@ function Content() {
         });
     else console.log("fill the input");
   };
-
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      GetApiResult();
+    }
+  };
   return (
     <>
       <Box
@@ -68,6 +72,7 @@ function Content() {
                 color="primary"
                 sx={{ width: "700px" }}
                 onChange={(e) => setTextFieldValue(e.target.value)}
+                onKeyPress={(e) => handleKeyPress(e)}
               />
             </Box>
             <Button
@@ -87,7 +92,7 @@ function Content() {
             </Box>
           </Stack>
         </Stack>
-      <CardHolder items={Items} />
+        <CardHolder items={Items} />
       </Box>
     </>
   );
