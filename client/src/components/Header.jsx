@@ -31,7 +31,7 @@ function Header() {
         onClick={getToken}
       >
         <Stack p={"10px"} direction="row" justifyContent={"space-between"}>
-          PLAYL!ST
+          GENERATOR
           <Box>
             <MenuIcon sx={{ cursor: "pointer" }} />
           </Box>
